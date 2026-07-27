@@ -1,0 +1,647 @@
+@import url("https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css");
+
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css");
+
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap");
+
+
+:root {
+    --primary-blue: #0052cc;
+    --accent-gold: #ffca28;
+    --boarding-teal: #0d9488;
+}
+@theme inline {
+    --color-background: var(--background);
+    --color-foreground: var(--foreground);
+    --color-primary: var(--primary);
+}
+
+:root {
+    --background: oklch(1 0 0);
+    --foreground: oklch(0.129 0.042 264.695);
+    --primary: oklch(0.55 0.22 259);
+    --primary-blue: #0052cc;
+    --accent-gold: #ffca28;
+    --boarding-teal: #0d9488;
+}
+
+/* ---------- Base ---------- */
+body {
+    background: #f0f2f5;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    color: #1e293b;
+}
+
+/* ---------- Navbar ---------- */
+.skyqueue-logo {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #2563eb !important;
+    letter-spacing: -0.5px;
+    transition: 0.3s ease;
+    text-decoration: none;
+}
+
+    .skyqueue-logo:hover {
+        color: #0052cc !important;
+        transform: translateY(-1px);
+    }
+
+    .skyqueue-logo i {
+        margin-right: 6px;
+    }
+
+.navbar {
+    background: rgba(255, 255, 255, 0.85) !important;
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+
+    .navbar .btn {
+        border-radius: 999px;
+        padding: 8px 16px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        letter-spacing: 0.3px;
+        transition: all 0.25s ease;
+        border: 1px solid transparent;
+    }
+
+    .navbar .btn-outline-primary {
+        background: rgba(0, 82, 204, 0.08);
+        border: 1px solid rgba(0, 82, 204, 0.25);
+        color: var(--primary-blue);
+    }
+
+        .navbar .btn-outline-primary:hover {
+            background: var(--primary-blue);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 18px rgba(0, 82, 204, 0.25);
+        }
+
+    .navbar .btn-outline-dark {
+        background: rgba(0,0,0,0.04);
+        border: 1px solid rgba(0,0,0,0.12);
+        color: #111827;
+    }
+
+        .navbar .btn-outline-dark:hover {
+            background: #111;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 18px rgba(0,0,0,0.2);
+        }
+
+    .navbar .btn-primary {
+        background: linear-gradient(135deg, #0052cc, #2563eb);
+        border: none;
+        color: white;
+        box-shadow: 0 6px 15px rgba(0, 82, 204, 0.25);
+    }
+
+        .navbar .btn-primary:hover {
+            background: linear-gradient(135deg, #0047b3, #1d4ed8);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 22px rgba(0, 82, 204, 0.35);
+        }
+
+/* ---------- Hero (Home) ---------- */
+.hero {
+    position: relative;
+    width: 100%;
+    min-height: 70vh;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    color: white;
+    background: url('https://media.cntraveler.com/photos/56ccd80793a5257460572d8b/16:9/w_1280,c_limit/airport-check-in-lufthansa-frankfurt.jpg') center/cover no-repeat;
+    overflow: hidden;
+    padding-top: 70px;
+}
+
+    .hero::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(120deg, rgba(0, 82, 204, 0.78), rgba(0, 0, 0, 0.45));
+    }
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 750px;
+    animation: fadeUp 0.8s ease-out;
+    text-align: left;
+    margin-left: 60px;
+}
+
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(18px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.service-card {
+    background: white;
+    border-radius: 28px;
+    padding: 40px 25px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+    transition: all 0.3s ease;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+    .service-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 45px rgba(0,0,0,0.12);
+    }
+
+.icon-circle {
+    width: 72px;
+    height: 72px;
+    margin: 0 auto 20px;
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    background: #eff6ff;
+    color: #2563eb;
+    transition: 0.3s ease;
+}
+
+.service-card:hover .icon-circle {
+    transform: scale(1.08);
+}
+
+.btn-action {
+    border-radius: 12px;
+    padding: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    width: 100%;
+    border: none;
+    background: linear-gradient(135deg, #0052cc, #2563eb);
+    color: white;
+}
+
+    .btn-action:hover {
+        color: white;
+        opacity: 0.95;
+    }
+
+/* ---------- Display page ---------- */
+.display-page {
+    padding-top: 60px;
+}
+
+.display-header {
+    background: linear-gradient(135deg, #1e293b, #3b82f6);
+    color: white;
+    padding: 50px 20px;
+    border-radius: 0 0 32px 32px;
+    text-align: center;
+    margin-bottom: 40px;
+    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.15);
+}
+
+    .display-header h1 {
+        font-weight: 800;
+        letter-spacing: -0.5px;
+        margin-bottom: 8px;
+    }
+
+.live-clock {
+    font-size: 1.1rem;
+    font-weight: 500;
+    background: rgba(255, 255, 255, 0.1);
+    display: inline-block;
+    padding: 6px 16px;
+    border-radius: 50px;
+    margin-top: 15px;
+    backdrop-filter: blur(4px);
+    letter-spacing: 0.5px;
+}
+
+.status-card {
+    background: white;
+    border-radius: 24px;
+    padding: 24px;
+    text-align: center;
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05), 0 10px 15px -3px rgba(0,0,0,0.03);
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;
+    height: 100%;
+    border: 1px solid rgba(226, 232, 240, 0.8);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+    .status-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1);
+    }
+
+.image-box {
+    width: 100%;
+    height: 160px;
+    overflow: hidden;
+    border-radius: 14px;
+    margin-bottom: 20px;
+    background-color: #f1f5f9;
+}
+
+    .image-box img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+    }
+
+.status-card:hover .image-box img {
+    transform: scale(1.05);
+}
+
+.category-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.now-serving-box {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 18px;
+    padding: 20px 15px;
+    margin-bottom: 20px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.ticket-label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 5px;
+}
+
+.ticket-number {
+    font-size: 4.5rem;
+    font-weight: 900;
+    color: #2563eb;
+    line-height: 1;
+    margin: 10px 0;
+    display: inline-block;
+    animation: gentlePulse 2s infinite ease-in-out;
+    letter-spacing: -1px;
+}
+
+@keyframes gentlePulse {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    50% {
+        transform: scale(1.03);
+        opacity: 0.95;
+    }
+}
+
+.queue-details {
+    border-top: 1px solid #f1f5f9;
+    padding-top: 20px;
+    text-align: left;
+}
+
+.detail-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    font-size: 0.95rem;
+}
+
+    .detail-item:last-child {
+        margin-bottom: 0;
+    }
+
+.detail-label {
+    color: #64748b;
+    font-weight: 500;
+}
+
+.detail-value {
+    font-weight: 700;
+    color: #0f172a;
+}
+
+.wait-high {
+    color: #ef4444;
+    background: #fef2f2;
+    padding: 2px 8px;
+    border-radius: 6px;
+}
+
+.wait-medium {
+    color: #f59e0b;
+    background: #fffbeb;
+    padding: 2px 8px;
+    border-radius: 6px;
+}
+
+.wait-low {
+    color: #10b981;
+    background: #ecfdf5;
+    padding: 2px 8px;
+    border-radius: 6px;
+}
+
+.footer-note {
+    text-align: center;
+    margin: 50px 0 30px;
+    color: #94a3b8;
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
+}
+
+/* ---------- Standalone pages (Ticket, FlightCheck) ---------- */
+.standalone-page {
+    min-height: 100vh;
+    background: #edf3f9;
+    display: flex;
+    flex-direction: column;
+}
+
+.mini-navbar {
+    height: 64px;
+    background: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 50px;
+    box-shadow: 0 2px 14px rgba(15, 23, 42, 0.08);
+}
+
+.mini-logo {
+    font-size: 22px;
+    font-weight: bold;
+    color: #0066d9;
+    text-decoration: none;
+}
+
+.mini-nav-text {
+    font-size: 14px;
+    color: #64748b;
+}
+
+.mini-page {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    padding: 40px 15px;
+}
+
+.mini-dashboard {
+    width: min(550px, 100%);
+    background: #fff;
+    padding: 30px;
+    border-radius: 14px;
+    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.13);
+}
+
+.mini-header {
+    border-bottom: 1px solid #e5edf5;
+    padding-bottom: 16px;
+    margin-bottom: 24px;
+    text-align: center;
+}
+
+    .mini-header h2 {
+        margin: 0 0 8px;
+        font-size: 26px;
+        color: #0f172a;
+    }
+
+.mini-subtitle {
+    margin: 0;
+    color: #64748b;
+    font-size: 15px;
+}
+
+.mini-form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.mini-input-label {
+    font-size: 13px;
+    color: #64748b;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    letter-spacing: 0.5px;
+}
+
+.mini-form-control {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 15px;
+    color: #1e293b;
+    background-color: #f8fafc;
+    transition: border-color 0.2s, background-color 0.2s;
+}
+
+    .mini-form-control:focus {
+        outline: none;
+        border-color: #0066d9;
+        background-color: #fff;
+    }
+
+.mini-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    margin-top: 24px;
+}
+
+.mini-btn {
+    width: 100%;
+    max-width: 240px;
+    padding: 12px 18px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    color: #fff;
+    background-color: #0066d9;
+    font-weight: bold;
+    font-size: 14px;
+    transition: background-color 0.2s;
+}
+
+    .mini-btn:hover {
+        background-color: #0052ad;
+    }
+
+    .mini-btn.ticket-cancel {
+        background: #64748b;
+    }
+
+        .mini-btn.ticket-cancel:hover {
+            background: #475569;
+        }
+
+.mini-message {
+    display: block;
+    padding: 12px;
+    border-radius: 8px;
+    margin-top: 16px;
+    font-size: 14px;
+    text-align: center;
+    font-weight: 500;
+}
+
+/* Ticket page specifics */
+.ticket-wrapper {
+    text-align: center;
+    margin-top: 25px;
+}
+
+.now-label {
+    font-size: 12px;
+    font-weight: bold;
+    color: #64748b;
+}
+
+.now {
+    font-size: 72px;
+    font-weight: bold;
+    color: #0066d9;
+    margin: 10px 0 20px 0;
+}
+
+.ticket-panel {
+    background: #f8fafc;
+    border: 1px solid #e5edf5;
+    border-radius: 10px;
+    padding: 18px;
+    margin-top: 8px;
+}
+
+.ticket-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #e5edf5;
+}
+
+    .ticket-row:last-child {
+        border: none;
+    }
+
+.ticket-label-inline {
+    color: #64748b;
+    font-weight: bold;
+}
+
+.ticket-value {
+    font-weight: bold;
+}
+
+/* ---------- Login ---------- */
+.login-container {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #f5f7fb;
+    padding-top: 64px;
+}
+
+.login-card {
+    width: 400px;
+    padding: 35px;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 5px 20px rgba(0,0,0,.1);
+}
+
+.btn-login {
+    width: 100%;
+}
+
+/* ---------- Staff / service dashboards ---------- */
+.dashboard-title {
+    margin-top: 120px;
+    text-align: center;
+}
+
+.dashboard-card {
+    border: none;
+    border-radius: 25px;
+    padding: 35px;
+    box-shadow: 0 5px 20px rgba(0,0,0,.08);
+    max-width: 500px;
+    margin: auto;
+    background: white;
+}
+
+.logout-btn {
+    margin-top: 30px;
+    width: 100%;
+}
+
+.stat-card {
+    border: none;
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 5px 20px rgba(0,0,0,.08);
+    background: white;
+    text-align: center;
+}
+
+.current-card {
+    margin-top: 30px;
+    border: none;
+    border-radius: 20px;
+    padding: 25px;
+    box-shadow: 0 5px 20px rgba(0,0,0,.08);
+    margin-bottom: 30px;
+    background: white;
+}
+
+.action-btn {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    font-size: 1.1rem;
+}
+
+/* fix: dashboard title spacing when navbar is visible */
+.container .dashboard-title {
+    margin-top: 90px;
+}
