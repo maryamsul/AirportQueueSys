@@ -1,5 +1,4 @@
-const API_URL = import.meta.env.VITE_API_URL;
-
+const API_URL = 'https://smartairport-api-f2bnc3e6drhdg6gr.koreacentral-01.azurewebsites.net';
 
 export async function apiRequest(
     endpoint: string,
