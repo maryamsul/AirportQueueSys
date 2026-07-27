@@ -38,29 +38,32 @@ builder.Services.AddSingleton<ServiceBusPublisher>();
 
 builder.Services.AddSwaggerGen();
 
+
 builder.Services
 .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 .AddJwtBearer(options =>
 {
-options.MapInboundClaims = false;
+    options.MapInboundClaims = false;
 
-options.TokenValidationParameters = new TokenValidationParameters
-{
- ValidateIssuer = true,
- ValidateAudience = true,
- ValidateLifetime = true,
- ValidateIssuerSigningKey = true,
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
 
- ValidIssuer = builder.Configuration["Jwt:Issuer"],
+        ValidIssuer = builder.Configuration["Jwt:Issuer"],
 
- ValidAudience = builder.Configuration["Jwt:Audience"],
+        ValidAudience = builder.Configuration["Jwt:Audience"],
 
- IssuerSigningKey =
-     new SymmetricSecurityKey(
-         Encoding.UTF8.GetBytes(
-             builder.Configuration["Jwt:Key"]!
-         ))
-};
+        RoleClaimType = ClaimTypes.Role,
+
+        IssuerSigningKey =
+            new SymmetricSecurityKey(
+                Encoding.UTF8.GetBytes(
+                    builder.Configuration["Jwt:Key"]!
+                ))
+    };
 });
 builder.Services.AddAuthorization();
 
