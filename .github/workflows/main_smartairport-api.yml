@@ -1,5 +1,5 @@
-# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
-# More GitHub Actions for Azure: https://github.com/Azure/actions
+# Docs for the Azure Web Apps Deploy action:
+# https://github.com/Azure/webapps-deploy
 
 name: Build and deploy ASP.Net Core app to Azure Web App - SmartAirport-API
 
@@ -12,54 +12,60 @@ on:
 jobs:
   build:
     runs-on: windows-latest
+
     permissions:
-      contents: read #This is required for actions/checkout
+      contents: read
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-      - name: Set up .NET Core
+      - name: Set up .NET
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: '10.x'
+          dotnet-version: '8.x'
 
-      - name: Build with dotnet
-        run: dotnet build --configuration Release
+      - name: Restore dependencies
+        run: dotnet restore SmartAirport.API/SmartAirport.API/SmartAirport.API.csproj
 
-      - name: dotnet publish
-        run: dotnet publish -c Release -o "${{env.DOTNET_ROOT}}/myapp"
+      - name: Build API
+        run: dotnet build SmartAirport.API/SmartAirport.API/SmartAirport.API.csproj --configuration Release --no-restore
 
-      - name: Upload artifact for deployment job
+      - name: Publish API
+        run: dotnet publish SmartAirport.API/SmartAirport.API/SmartAirport.API.csproj --configuration Release --output ./publish
+
+      - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: .net-app
-          path: ${{env.DOTNET_ROOT}}/myapp
+          name: dotnet-app
+          path: ./publish
+
 
   deploy:
     runs-on: windows-latest
+
     needs: build
+
     permissions:
-      id-token: write #This is required for requesting the JWT
-      contents: read #This is required for actions/checkout
+      id-token: write
+      contents: read
 
     steps:
-      - name: Download artifact from build job
+      - name: Download artifact
         uses: actions/download-artifact@v4
         with:
-          name: .net-app
-      
+          name: dotnet-app
+
       - name: Login to Azure
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_343B28C108544F518C4F9742B4D4E3F1 }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_DE613A7E1ECB41ADB44A55164052E31F }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_30B9E404DD164FA0B68A4E1F6014BF7C }}
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_8D5D7C4BBD41418AB8B59611F32A8E2A }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_73AA1457DC4C4BABB1B3FE30F5765A5D }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_AFCC23B987C94A01B5ED33CE6F519BB5 }}
 
       - name: Deploy to Azure Web App
-        id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
         with:
-          app-name: 'SmartAirport-API'
-          slot-name: 'Production'
+          app-name: SmartAirport-API
+          slot-name: Production
           package: .
-          
