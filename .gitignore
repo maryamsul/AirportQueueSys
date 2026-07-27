@@ -1,0 +1,14 @@
+# Visual Studio
+.vs/
+**/.vs/
+.env
+**/.env
+# Build results
+bin/
+obj/
+**/appsettings.json
+# User-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
