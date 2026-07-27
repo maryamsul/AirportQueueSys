@@ -24,6 +24,7 @@ public class ServiceBusPublisher
         var queueName =
             _configuration["AzureServiceBus:QueueName"];
 
+        Console.WriteLine($"Sending to queue: {queueName}");
 
         ServiceBusSender sender =
             _client.CreateSender(queueName);

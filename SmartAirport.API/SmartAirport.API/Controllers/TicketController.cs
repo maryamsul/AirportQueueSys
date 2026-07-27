@@ -23,15 +23,22 @@ public class TicketController : ControllerBase
 
     [HttpPost]
     public async Task<IActionResult> CreateTicket(
-        CreateTicketRequest request)
+      CreateTicketRequest request)
     {
+        try
+        {
+            var result = await _service.CreateTicket(request);
 
-        var result = await _service.CreateTicket(request);
-
-        return Accepted(result);
+            return Accepted(result);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(new
+            {
+                message = ex.Message
+            });
+        }
     }
-
-
 
     [Authorize]
     [HttpGet("me")]
@@ -53,5 +60,25 @@ public class TicketController : ControllerBase
             email,
             role
         });
+    }
+    [HttpPut("cancel")]
+    public async Task<IActionResult> CancelTicket(
+        CancelTicketRequest request)
+    {
+        var result = await _service.CancelTicket(
+            request.FlightCode
+        );
+
+
+        if (result == null)
+        {
+            return NotFound(new
+            {
+                message = "Waiting ticket not found."
+            });
+        }
+
+
+        return Ok(result);
     }
 }
