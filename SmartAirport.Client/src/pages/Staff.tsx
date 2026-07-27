@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router-dom";
 import { useEffect, useMemo, useState } from "react";
-import { useAuth } from "../lib/auth";
 
 
 const counters: Record<string, string[]> = {
@@ -42,8 +41,6 @@ const serviceRouteKey: Record<string, string> = {
 
 function Staff() {
 
-    const { isAuthed, logout } = useAuth();
-
     const nav = useNavigate();
 
 
@@ -51,14 +48,17 @@ function Staff() {
 
     const [counter, setCounter] = useState("");
 
+    const [error, setError] = useState("");
+
 
 
     useEffect(() => {
 
+        const token =
+            localStorage.getItem("token");
 
-        if (
-            localStorage.getItem("skyqueue_auth") !== "1"
-        ) {
+
+        if (!token) {
 
             nav("/login");
 
@@ -70,6 +70,7 @@ function Staff() {
 
 
 
+
     const availableCounters = useMemo(
         () => counters[service] ?? [],
         [service]
@@ -77,51 +78,89 @@ function Staff() {
 
 
 
+    async function openDashboard() {
+    if (!service || !counter) return;
 
-    function open() {
+    try {
+        setError("");
 
-        if (!service || !counter)
-            return;
+        const counterId =
+            availableCounters.indexOf(counter) + 1;
 
-
-        nav(
-            `/dashboard/${serviceRouteKey[service]}`
+        const response = await fetch(
+            `${import.meta.env.VITE_API_URL}/api/Staff/select-service`,
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
+                },
+                body: JSON.stringify({
+                    serviceType: service,
+                    counterId,
+                }),
+            }
         );
 
+        const data = await response.json();
+
+        if (!response.ok) {
+            throw new Error(
+                data.message || "Failed to select service"
+            );
+        }
+
+        // Replace normal JWT with Staff Context JWT
+        localStorage.setItem("token", data.token);
+
+        localStorage.setItem(
+            "staffContext",
+            JSON.stringify(data)
+        );
+
+        nav(`/dashboard/${serviceRouteKey[service]}`);
+    } catch (error: unknown) {
+        if (error instanceof Error) {
+            setError(error.message);
+        } else {
+            setError("Failed to select service");
+        }
     }
+}
 
+function logout() {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    localStorage.removeItem("staffContext");
 
-
-
-    function doLogout() {
-
-        logout();
-
-        nav("/");
-
-    }
-
-
-
-    if (!isAuthed)
-        return null;
+    nav("/");
+}
 
 
 
     return (
 
+
         <div className="container">
 
 
+
             <h1 className="dashboard-title">
+
                 Staff Dashboard
+
             </h1>
 
 
 
+
             <p className="text-center text-muted">
+
                 Choose service area and counter
+
             </p>
+
+
 
 
 
@@ -130,9 +169,15 @@ function Staff() {
 
 
 
+
+
+
                 <label className="form-label">
+
                     Service
+
                 </label>
+
 
 
 
@@ -142,9 +187,11 @@ function Staff() {
 
                     value={service}
 
-                    onChange={(e) => {
+                    onChange={(e)=>{
 
-                        setService(e.target.value);
+                        setService(
+                            e.target.value
+                        );
 
                         setCounter("");
 
@@ -154,22 +201,33 @@ function Staff() {
 
 
                     <option value="">
+
                         Select Service
+
                     </option>
+
 
 
                     <option value="Security">
+
                         Security
+
                     </option>
+
 
 
                     <option value="Boarding">
+
                         Boarding
+
                     </option>
 
 
+
                     <option value="Check-in">
+
                         Baggage Drop
+
                     </option>
 
 
@@ -178,58 +236,107 @@ function Staff() {
 
 
 
+
+
+
+
                 <br />
 
 
 
+
+
+
+
                 <label className="form-label">
+
                     Counter
+
                 </label>
+
+
+
 
 
 
                 <select
 
+
                     className="form-select"
+
 
                     value={counter}
 
-                    onChange={(e) => setCounter(e.target.value)}
+
+                    onChange={(e)=>
+
+                        setCounter(
+                            e.target.value
+                        )
+
+                    }
+
 
                     disabled={!service}
+
 
                 >
 
 
+
                     <option value="">
 
+
                         {
+
                             service
-                                ?
-                                "Select Counter"
-                                :
-                                "Select service first"
+
+                            ?
+
+                            "Select Counter"
+
+                            :
+
+                            "Select service first"
+
                         }
+
 
                     </option>
 
 
 
+
                     {
+
                         availableCounters.map(c => (
 
+
                             <option
+
                                 key={c}
+
                                 value={c}
+
                             >
+
                                 {c}
+
                             </option>
 
+
                         ))
+
                     }
 
 
+
                 </select>
+
+
+
+
+
 
 
 
@@ -237,43 +344,88 @@ function Staff() {
 
 
 
+
+
+
+
+                {
+
+                    error &&
+
+
+                    <div className="text-danger mb-3">
+
+                        {error}
+
+                    </div>
+
+                }
+
+
+
+
+
+
+
+
+
                 <button
+
 
                     className="btn btn-primary w-100"
 
-                    onClick={open}
+
+                    onClick={openDashboard}
+
 
                     disabled={!service || !counter}
+
 
                 >
 
                     Open Dashboard
 
+
                 </button>
+
+
+
+
+
 
 
 
                 <button
 
+
                     className="btn btn-danger logout-btn"
 
-                    onClick={doLogout}
+
+                    onClick={logout}
+
 
                 >
 
                     Logout
 
+
                 </button>
+
+
+
 
 
 
             </div>
 
 
+
+
+
         </div>
 
-    );
 
+    );
 
 }
 

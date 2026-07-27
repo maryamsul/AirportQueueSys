@@ -72,7 +72,9 @@ function FlightCheck() {
 
 
         nav(
-            `/ticket?service=${service}&flight=${flightNumber}`
+
+ `/ticket?service=${service}&flight=${flightNumber}&code=${flightCode}`
+
         );
 
     }
