@@ -11,10 +11,12 @@ var builder = WebApplication.CreateBuilder(args);
 DotNetEnv.Env.Load();
 
 builder.Configuration["Jwt:Key"] =
-    Environment.GetEnvironmentVariable("JWT_KEY");
+    Environment.GetEnvironmentVariable("JWT_KEY")
+    ?? builder.Configuration["Jwt:Key"];
 
 builder.Configuration["AzureServiceBus:ConnectionString"] =
-    Environment.GetEnvironmentVariable("AZURE_SERVICE_BUS_CONNECTION_STRING");
+    Environment.GetEnvironmentVariable("AZURE_SERVICE_BUS_CONNECTION_STRING")
+    ?? builder.Configuration["AzureServiceBus:ConnectionString"];
 // Services
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
