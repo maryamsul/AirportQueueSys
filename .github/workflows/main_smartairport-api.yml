@@ -2,7 +2,8 @@
 # https://github.com/Azure/webapps-deploy
 
 name: Build and deploy ASP.Net Core app to Azure Web App - SmartAirport-API
-
+env:
+  VITE_API_URL: https://smartairport-api-f2bnc3e6drhdg6gr.koreacentral-01.azurewebsites.net
 on:
   push:
     branches:
